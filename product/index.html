@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<script src="//cdn.jsdelivr.net/npm/eruda"></script>
+		<script>eruda.init();</script>
+		<!-- MetaTags Title -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Textos da Julia</title>
+		<link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/icon/apple-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/icon/apple-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/icon/apple-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/icon/apple-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/icon/apple-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/icon/apple-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-icon-180x180.png">
+		<link rel="icon" type="image/png" sizes="192x192"  href="/icon/android-icon-192x192.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="/icon/favicon-96x96.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/icon/favicon-16x16.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Textos da Ju">
+		<meta name="description" content="Textos da Julia">
+		<link rel="manifest" href="manifest.json">
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="msapplication-TileImage" content="/icon/ms-icon-144x144.png">
+		<meta name="theme-color" content="#F44336">
+		<!--Materialize-->
+		<link rel="stylesheet" href="/css/materialize.min.css">
+		<!--Meu CSS e JS-->
+		<link rel="stylesheet" href="/css/styles.css">
+	</head>
+	<body>
+		<!--Top AppBar-->
+		<div class="navbar-fixed">
+			<nav>
+				<div class="nav-wrapper red">
+					<a href="#" data-target="drawer" class="sidenav-trigger logado"><i class="material-icons">menu</i></a>
+					<h6 href="#!" class="brand-logo">Textos da Julia</h6>
+					<ul class="right">
+						<li id="pesquisar-tela" onclick="Pagina.interface.trocarTela(null,'#Tela_Busca')" class="circle waves-effect logado"><a><i class="material-icons">search</i></a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+		<!--Drawer-->
+		<div class="sidenav logado" id="drawer">
+			<div class="card horizontal">
+				<div class="card-img valign-wrapper">
+					<img alt="Foto do usuario" class="circle" width:=100 height=100>
+				</div>
+				<div class="card-stacked">
+					<div class="card-content">
+						<p id="user_name" >Seja Bem Vindo</p>
+					</div>
+				</div>
+			</div>
+			<ul id="Drawer_Lista" class="collapsible logado">
+				<li><div class="collapsible-header waves-effect"><i class="material-icons">library_books</i>Qtd de poemas: <span id="qtd_poemas">14</span></div></li>
+				<li>
+					<div class="collapsible-header waves-effect"><i class="material-icons">settings</i>Configurações</div>
+					<div class="collapsible-body settings" style="">
+						<ul>
+							<li class="waves-effect">Deletar tudo</li>
+							<li class="waves-effect"><span>Modo Escuro</span><i class="switch right"><label><input id="tema" type="checkbox" onclick="Pagina.interface.tema.alterarTema()"><span class="lever"></span></label></i></li>
+						</ul>
+					</div>
+				</li>
+				<li onclick="GerenteDeAutenticacao.sair()"><div class="collapsible-header waves-effect"><i class="material-icons">meeting_room</i>Sair</div></li>
+			</ul>
+		</div>
+		<!--Nao Logado-->
+		<div id="Tela_Home" class="container">
+			<div class="center">
+				<h4 class="center">Seja bem-vindo ao Textos da Ju aperte o botão abaixo para entrar.</h4>
+				<div class="Local_Do_Botao_De_Login">
+					<a onclick ="GerenteDeAutenticacao.entrar()" class="icon-button facebook"><i class="icon-facebook"> </i><span></span></a>
+				</div>
+			</div>
+		</div>
+		<!--Carregando-->
+		<div id="Tela_Carregando">
+			<div class="preloader-wrapper active">
+				<div class="spinner-layer spinner-red-only">
+					<div class="circle-clipper left">
+						<div class="circle">
+						</div>
+					</div>
+					<div class="gap-patch">
+						<div class="circle">
+						</div>
+					</div>
+					<div class="circle-clipper right">
+						<div class="circle">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Search-->
+		<div id="Tela_Busca" class="row">
+			<div class="input-field col s12">
+				<input id="pesquisar" type="text">
+				<label for="pesquisar">O que você está procurando?</label>
+			</div>
+			<div class="container">
+				<div class="container sem-poemas">
+					<div class="row center-align">
+						<p>Ops nada foi encontrado</p>
+					</div>
+				</div>
+				<div class="row" id="resultados-de-busca">
+					<div id="apresentacao" class="container center-align">
+						<i class="material-icons large">search</i>
+						<h4>Faça uma busca</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Painel-->
+		<div id="Tela_Painel" class="container">
+			<div class="container sem-poemas">
+				<div class="row center-align">
+					<p>Você esta sem poemas. Aperte em <i class="material-icons">add</i> para adiciona-los</p>
+				</div>
+			</div>
+			<div class="row" id="lista-de-poemas">
+				
+				<div class="col s12 m6">
+					<div class="card blue-grey darken-1">
+						<div class="card-content white-text">
+							<span class="card-title">Noite Sofridas</span>
+							<p>Batatinha quando nasce esparrama pelo chão<br>Menininha quando dorme bota a mão no coração</p>
+						</div>
+						<div class="card-action right-align">
+							<a class="modal-trigger" href="#criar-modal">Abrir</a>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	  	<!--FAB-->
+		<div class="fixed-action-btn logado">
+			<a onclick="Pagina.interface.criarPoema()" class="btn-floating btn-large waves-effect red">
+				<i class="large material-icons">add</i>
+			</a>
+		</div>
+		<!-- Dialogs -->
+		<div id="criar-modal" class="modal">
+			<form autocomplete="off">
+			<div class="modal-content">
+				<h5><i class="material-icons">mode_edit</i>&emsp;Criar ou Editar</h5>
+				<div class="container">
+					<div class="row">
+						<div class="input-field col s12">
+							<input id="editar-titulo-poema" type="text" required>
+							<label for="editar-titulo-poema">Titulo Do Poema</label>
+						</div>
+						<div class="input-field col s12">
+							<textarea id="editar-conteudo-poema" class="materialize-textarea" required type="text"></textarea>
+							<label for="editar-conteudo-poema">Conteudo Do Poema</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer right-align">
+				<a class="btn waves-effect red modal-close">Cancelar</a>
+				<button type="submit" id="salvar" class="btn waves-effect green">Salvar</button>
+			</div>
+			</form>
+		</div>
+		<div id="poema-modal" class="modal">
+			<div class="modal-content">
+				<h5></h5>
+				<div class="container">
+					<div class="row">
+						<p class="col s12">
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer right-align">
+				<ul class="dropdown-content" id="more">
+					<li><a id="cor-botao"><i class="material-icons">color_lens</i>Cor</a></li>
+					<li><a id="delete-botao"><i class="material-icons">delete</i>Deletar</a></li>
+				</ul>
+				<a data-target="more" class="btn btn-flat circle waves-effect left transparent dropdown-trigger"><i class="material-icons">more_vert</i></a>
+				<a id="editar-botao" class="btn waves-effect transparent">Editar</a>
+				<a class="btn waves-effect modal-close transparent">Ok</a>
+			</div>
+		</div>
+		<div id="deletar-modal" class="modal">
+			<div class="modal-content center-align">
+				<h1><i class="material-icons">error_outline</i></h1>
+				<p>Você tem certeza que deseja deletar o Poema?</p>
+			</div>
+			<div class="modal-footer right-align">
+				<a id="deletar" class="btn waves-effect red">Deletar</a>
+				<a class="btn waves-effect green modal-close">Sair</a>
+			</div>
+		</div>
+		<div class="modal" id="cor-modal">
+			<div class="modal-content center-align">
+				<h6>Selecione a cor:</h6>
+				<a class="btn-floating red"></a>
+				<a class="btn-floating pink"></a>
+				<a class="btn-floating purple"></a>
+				<a class="btn-floating deep-purple"></a>
+				<a class="btn-floating indigo"></a>
+				<a class="btn-floating blue"></a>
+				<a class="btn-floating light-blue"></a>
+				<a class="btn-floating cyan"></a>
+				<a class="btn-floating green"></a>
+				<a class="btn-floating light-green"></a>
+				<a class="btn-floating lime"></a>
+				<a class="btn-floating yellow"></a>
+				<a class="btn-floating amber"></a>
+				<a class="btn-floating orange"></a>
+				<a class="btn-floating deep-orange"></a>
+				<a class="btn-floating brown"></a>
+				<a class="btn-floating grey"></a>
+				<a class="btn-floating blue-grey"></a>
+				<a class="btn-floating black"></a>
+				<a class="btn-floating white"></a>
+			</div>
+		</div>
+	</body>
+	<!-- Font Awesome-->
+	<script defer src="/__/firebase/6.0.2/firebase-app.js"></script>
+	<script defer src="/__/firebase/6.0.2/firebase-auth.js"></script>
+	<script defer src="/__/firebase/6.0.2/firebase-firestore.js"></script>
+	<script defer src="/__/firebase/init.js"></script>
+	<!-- jQuery -->
+	<script src="/js/jquery-3.4.1.min.js"></script>
+	<script src="/js/materialize.min.js"></script>
+	<link href="/css/icon.css" rel="stylesheet">
+	<script src="/js/scripts.js"></script>
+</html>

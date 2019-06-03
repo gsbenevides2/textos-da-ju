@@ -1,0 +1,128 @@
+.logado ,#Tela_Home,.sem-poemas,#Tela_Painel,#Tela_Busca{
+	display:none;
+}
+.Tela_Home .Local_Do_Botao_De_Login{
+	text-align:center;
+}
+#cor-modal a{
+	margin-top:3px;
+}
+.settings ul li{
+	width:100% !important;
+	padding-left:15px !important;
+	padding-right:15px !important;
+}
+/* Wrapper */
+.icon-button {
+	background-color: white;
+	border-radius: 3.6rem;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 2.0rem;
+	height: 3.6rem;
+	line-height: 3.6rem;
+	margin: 0 5px;
+	position: relative;
+	text-align: center;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
+	width: 3.6rem;
+}
+
+/* Circle */
+.icon-button span {
+	border-radius: 0;
+	display: block;
+	height: 0;
+	left: 50%;
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	-webkit-transition: all 0.3s;
+	   -moz-transition: all 0.3s;
+	     -o-transition: all 0.3s;
+	        transition: all 0.3s;
+	width: 0;
+}
+.icon-button:hover span {
+	width: 3.6rem;
+	height: 3.6rem;
+	border-radius: 3.6rem;
+	margin: -1.8rem;
+}
+.facebook span {
+	background-color: #3B5998;
+}
+/* Icons */
+.icon-button i{
+	background: none;
+	color: white;
+	height: 3.6rem;
+	left: 0;
+	line-height: 3.6rem;
+	position: absolute;
+	top: 0;
+	-webkit-transition: all 0.3s;
+	   -moz-transition: all 0.3s;
+	     -o-transition: all 0.3s;
+	        transition: all 0.3s;
+	width: 3.6rem;
+	z-index: 10;
+}
+.title-navBar{
+	max-width:100%;
+	font-size:1.60rem !important;
+	position: absolute !important;
+	display:block !important;
+	padding-top:0px;
+	padding-left:0px;
+	padding-right:0px;
+	padding-bottom:0px;
+}
+svg{
+	margin-top:10px;
+	fill: currentColor;
+}
+.icon-button i{
+	color: #3B5998;
+}
+.icon-button:hover i{
+	color: white;
+}
+
+.input-field input[type=text]:focus + label{
+	color: #000;
+}
+.input-field input[type=text]:focus {
+	border-bottom: 1px solid #000;
+	box-shadow: 0 1px 0 0 #000;
+}
+.input-field input:focus + label{
+	color: red !important;
+}
+.input-field input:focus {
+	border-bottom: 1px solid red !important;
+	box-shadow: 0 1px 0 0 red !important;
+}
+.switch label input[type=checkbox]:checked+.lever {
+	background-color: #f44336;
+}
+.switch label input[type=checkbox]:checked+.lever:after {
+	background-color: #d32f2f;
+}
+.input-field textarea[type=text]:focus + label{
+	color: #000;
+}
+.input-field textarea[type=text]:focus {
+	border-bottom: 1px solid #000;
+	box-shadow: 0 1px 0 0 #000;
+}
+.input-field  textarea:focus + label{
+	color: red !important;
+}
+.input-field textarea:focus {
+	border-bottom: 1px solid red !important;
+	box-shadow: 0 1px 0 0 red !important;
+}
