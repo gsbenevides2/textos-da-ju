@@ -107,16 +107,7 @@ var Pagina = {
 		pesquisarPoema(){
 			const termoDeBusca = $("#pesquisar").val();
 			if(termoDeBusca != "" && this.telaAtual == "#Tela_Busca"){
-				const resultadoDoEscaneamento = GerenciadorDePoemas.poemas.map((poema)=>{
-					if(poema.titulo.indexOf(termoDeBusca) != -1) return poema;
-					else{
-						for(numeroDaLinha = 0; numeroDaLinha < poema.linhas.length;numeroDaLinha++){
-							const linha = poema.linhas[numeroDaLinha];
-							if(linha.indexOf(termoDeBusca) != -1)return poema;break;
-						}
-					}
-				})
-				const resultadoDaBusca = resultadoDoEscaneamento.filter(elemento=>elemento != null);
+				const resultadoDaBusca = GerenciadorDePoemas.pesquisarPoema(termoDeBusca)
 				this.atualizarLista("resultados-de-busca", resultadoDaBusca);
 			}
 		},
@@ -292,30 +283,31 @@ var GerenciadorDePoemas ={
 		return this.poemas.find(obj=>obj.id == id);
 	},
 	pesquisarPoema(termoDeBusca,filtros){
-		if(!filtros){filtros=["titulo","conteudo"]}
-		const resultado1 = this.poemas.map((poema,posicao)=>{
+		function analizarString(string,termo){
+			const stringFormatada = string.toLowerCase();
+			const termoFormatado = termo.toLowerCase();
+			if(stringFormatada.indexOf(termoFormatado) != -1)return true
+			else return false
+		}
+		if(!filtros){filtros=["titulo"]}//,"conteudo"]}
+		var posicoesDosPoemas = this.poemas.map((poema,posicao)=>{
 			const resultadoDosFiltros = filtros.map(filtro=>{
 				if(filtro!="conteudo"){
-					poema[filtro].indexOf(termoDeBusca) != -1) return true;
+					const texto = poema[filtro]
+					return analizarString(texto,termoDeBusca) //.indexOf(termoDeBusca) != -1){console.log("termo encontrado no titulo");return true}
 				}
 				else{
-					console.log("filtro")
+					const resultadosDasLinhas = poema.linhas.map(linha=>analizarString(linha,termoDeBusca))
+					if(resultadosDasLinhas.includes(true))return true
+					else return false
 				}
 			})
+			if(resultadoDosFiltros.includes(true))return posicao
+		}).filter(elemento=>elemento != null);
+		const poemas = posicoesDosPoemas.map(posicao=>{
+			return this.poemas[posicao];
 		})
-		/*
-		const resultadoDoEscaneamento = GerenciadorDePoemas.poemas.map((poema)=>{
-			if(poema.titulo.indexOf(termoDeBusca) != -1) return poema;
-			else{
-				for(numeroDaLinha = 0; numeroDaLinha < poema.linhas.length;numeroDaLinha++){
-				const linha = poema.linhas[numeroDaLinha];
-				if(linha.indexOf(termoDeBusca) != -1)return poema;break;
-				}
-			}
-			})
-			const resultadoDaBusca = resultadoDoEscaneamento.filter(elemento=>elemento != null);
-			*/
-		
+		return poemas
 	},
 	async salvarPoema(id,titulo,linhas,cor){
 		if(id){
@@ -407,9 +399,7 @@ var GerenteDeAutenticacao= {
 		firebase.auth().signOut();
 	}
 }
-function test(){
-	GerenciadorDePoemas.pesquisarPoema("diabos")
-}
 $(document).ready(()=>{
+	firebug.win.hide()
 	Pagina.iniciar();
 });
