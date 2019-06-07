@@ -1,4 +1,3 @@
-//Terminar cor e categoria
 //Refatorar
 //-Verificar nome das variáveis e funções
 //-Reposicionar as funções
@@ -71,7 +70,7 @@ var Pagina = {
 				}
 				$("#user_name")[0].innerHTML = usuario.displayName;
 				$(".logado").show();
-				
+
 				Pagina.interface.trocarTela(null,"#Tela_Painel");
 			}
 			else{
@@ -88,7 +87,7 @@ var Pagina = {
 			poemas.map((poema)=>{
 				if(poema.linhas.length >= 2){var primeiroParagrafo = poema.linhas[0]+"<br>"+poema.linhas[1];}
 				else{var primeiroParagrafo = poema.linhas[0]}
-				
+
 				var colorText = "white";
 				if(poema.cor == "white" || poema.cor == "yellow" || poema.cor=="amber" || !poema.cor) colorText = "black"
 				if(!poema.cor) poema.cor = "white";
@@ -276,7 +275,7 @@ var GerenciadorDePoemas ={
 		Pagina.interface.atualizarLista("lista-de-poemas");
 	},
 	async carregarFirestore(){
-		await firebase.firestore().enablePersistence();
+		await firebase.firestore().enablePersistence({synchronizeTabs:true});
 		this.db = firebase.firestore();
 	},
 	obterPoema(id){
@@ -359,7 +358,7 @@ var GerenteDeAutenticacao= {
 					await GerenciadorDePoemas.iniciar();
 					$("#qtd_poemas")[0].innerHTML = GerenciadorDePoemas.poemas.length;
 					await Pagina.interface.tema.iniciar();
-					
+
 				}
 				Pagina.interface.login(usuario);
 			})

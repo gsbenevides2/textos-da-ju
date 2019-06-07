@@ -1,5 +1,50 @@
-.logado ,#Tela_Home,.sem-poemas,#Tela_Painel,#Tela_Busca{
+/* link que ainda não foi visitado */
+a:link , a:visited , a:hover , a:active {
+    color: inherit; 
+}
+.secondary-content{
+	float:right !important;
+	color:black;
+	text-align:right !important;
+}
+
+.remove-1{
+	padding-bottom:0px !important;
+}
+.remove-2{
+	padding-left:0px !important;
+}
+.bz-bor{
+	width:50% !important;
+}
+.d-inline{
+	display:inline !important;
+	
+}
+.voltarButton{
 	display:none;
+	float:left;
+	position:relative;
+	z-index:1;
+	height:56px;
+	margin-top:0px;
+	padding-left:18px;
+	padding-right:18px;
+	margin-bottom:0px;
+}
+.voltarButton i{
+	height:56px;
+	line-height:56px;
+}
+
+.logado ,#Tela_Home,.sem-poemas,#Tela_Painel,#Tela_Busca,#Tela_Categorias,.sem-categorias{
+	display:none;
+}
+.w-100{
+	width:100%;
+}
+.tiny{
+	font-size: 1rem !important;
 }
 .Tela_Home .Local_Do_Botao_De_Login{
 	text-align:center;
