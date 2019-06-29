@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<!--script src='http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'></script-->
+		<!--script src="//cdn.jsdelivr.net/npm/eruda"></script>
+		<script>eruda.init();</script>
+		<!-- MetaTags Title -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>404</title>
+		<link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/icon/apple-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/icon/apple-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/icon/apple-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/icon/apple-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/icon/apple-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/icon/apple-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-icon-180x180.png">
+		<link rel="icon" type="image/png" sizes="192x192"  href="/icon/android-icon-192x192.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="/icon/favicon-96x96.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/icon/favicon-16x16.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Textos da Ju">
+		<meta name="description" content="Textos da Julia">
+		<link rel="manifest" href="manifest.json">
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="msapplication-TileImage" content="/icon/ms-icon-144x144.png">
+		<meta name="theme-color" content="#F44336">
+		<!-- Materialize-->
+		<link rel="stylesheet" href="/css/materialize.min.css">
+		<!--Meu CSS e JS -->
+		<script src="/js/materialize.min.js"></script>
+		<style>
+			.voltarButton{
+				float:left;
+				position:relative;
+				z-index:1;
+				height:56px;
+				margin-top:0px;
+				padding-left:18px;
+				padding-right:18px;
+				margin-bottom:0px;
+			}
+			.title-navBar{
+				max-width:100%;
+				font-size:1.60rem !important;
+				position: absolute !important;
+				display:block !important;
+				padding-top:0px;
+				padding-left:0px;
+				padding-right:0px;
+				padding-bottom:0px;
+			}
+		</style>
+	</head>
+	<body onload="OnLoad()">
+		<!--Top AppBar-->
+		<div class="navbar-fixed">
+			<nav>
+				<div class="nav-wrapper red">
+					<a href="/" class="voltarButton waves-effect"><i class="material-icons">home</i></a>
+					<span href="#!" class="brand-logo title-navBar">404</span>
+				</div>
+			</nav>
+		</div>
+		<!--Pagina-->
+		<div class="container">
+			<div class="row">
+				<div class="col s8 offset-s2 center-align">
+					<h3>Ops o que você procura não está aqui</h3>
+					<a href="\" class="btn red waves-effect waves-light"><i class="material-icons left">home</i>Ir a tela inicial</a>
+				</div>
+			</div>
+		</div>
+	</body>
+	
+	<link href="/css/icon.css" rel="stylesheet">
+	<script>
+		function OnLoad(){
+		try{
+			var cookies = JSON.parse(document.cookie)
+			if(cookies.escuro){
+				var body = document.body
+				body.classList.add("grey")
+				body.classList.add("darken-4");
+				body.classList.add("white-text");
+			}
+		}
+		catch(error){
+			console.log(error)
+		}}
+	</script>
+</html>

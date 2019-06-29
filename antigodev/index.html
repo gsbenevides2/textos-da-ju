@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
-		<!--script src='https://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'></script-->
-		<!--script src="//cdn.jsdelivr.net/npm/eruda"></script-->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/vConsole/3.3.0/vconsole.min.js"></script>
-		<script>if(typeof eruda != "undefined"){eruda.init();} try{new VConsole()}catch(e){} if(typeof firebug != "undefined"){firebug.win.hide()}</script>
+		
+		<!--script src='http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'></script-->
+		<!--script src="//cdn.jsdelivr.net/npm/eruda"></script>
+		<script>if(typeof eruda != "undefined"){eruda.init();}</script>
 		<!-- MetaTags Title -->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,34 +30,10 @@
 		<meta name="msapplication-TileColor" content="#ffffff">
 		<meta name="msapplication-TileImage" content="/icon/ms-icon-144x144.png">
 		<meta name="theme-color" content="#F44336">
-		<!--js cookies-->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
-		<!--JQuery-->
-		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<!--Materialize -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-		<!--Icons e Fonts-->
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-		<!--Animate CSS-->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
-		<!--Firebase-->
-		<script defer src="/__/firebase/6.2.0/firebase-app.js"></script>
-		<script defer src="/__/firebase/6.2.0/firebase-firestore.js"></script>
-		<script defer src="/__/firebase/6.2.0/firebase-auth.js"></script>
-		<script defer src="/__/firebase/6.2.0/firebase-performance.js"></script>
-		<script defer src="/__/firebase/6.2.0/firebase-messaging.js"></script>
-		<script defer src="/__/firebase/init.js"></script>
-		<!--Meus CSS e JS-->
-		<script defer src="/js/notificacoes.js"></script>
-		<script defer src="/js/modals.js"></script>
-		<script defer src="/js/poemas.js"></script>
-		<script defer src="/js/telas.js"></script>
-		<script defer src="/js/autenticacao.js"></script>
-		<script defer src="/js/pagina.js"></script>
-		<script defer src="/js/scripts.js"></script>
-		<link rel="stylesheet" href="/css/styles.css">
+		<!-- Materialize>
+		<link rel="stylesheet" href="/css/materialize.min.css">
+		<!--Meu CSS e JS -->
+		<link rel="stylesheet" href="/styles.css">
 	</head>
 	<body>
 		<!--Top AppBar-->
@@ -65,10 +41,10 @@
 			<nav>
 				<div class="nav-wrapper red">
 					<a href="#" data-target="drawer" class="sidenav-trigger logado"><i class="material-icons">menu</i></a>
-					<a onclick="Telas.telaDeCategorias.exibirLista()" class="voltarButton waves-effect"><i class="material-icons">arrow_back</i></a>
+					<a onclick="Pagina.telas.categoriaLista()" class="voltarButton waves-effect"><i class="material-icons">arrow_back</i></a>
 					<span href="#!" class="brand-logo title-navBar">T<span id="autoHide">extos da </span>JC</span>
 					<ul class="right">
-						<li id="pesquisar-tela" onclick="Telas.trocar(null,'#Tela_Busca')" class="circle waves-effect logado"><a><i class="material-icons">search</i></a></li>
+						<li id="pesquisar-tela" onclick="Pagina.telas.trocar(null,'#Tela_Busca')" class="circle waves-effect logado"><a><i class="material-icons">search</i></a></li>
 					</ul>
 				</div>
 			</nav>
@@ -86,21 +62,20 @@
 				</div>
 			</div>
 			<ul id="Drawer_Lista" class="collapsible logado">
-				<li onclick="Telas.trocar(null,'#Tela_Painel')"><div class="collapsible-header waves-effect"><i class="material-icons">library_books</i>Qtd de poemas: <span id="qtd_poemas">14</span></div><div class="collapsible-body" style="display:none"></div></li>
-				<li onclick="Telas.trocar(null,'#Tela_Categorias')"><div class="collapsible-header waves-effect"><i class="material-icons">format_list_bulleted</i>Categorias</div><div class="collapsible-body" style="display:none"></div></li>
+				<li onclick="Pagina.telas.trocar(null,'#Tela_Painel')"><div class="collapsible-header waves-effect"><i class="material-icons">library_books</i>Qtd de poemas: <span id="qtd_poemas">14</span></div><div class="collapsible-body" style="display:none"></div></li>
+				<li onclick="Pagina.telas.trocar(null,'#Tela_Categorias')"><div class="collapsible-header waves-effect"><i class="material-icons">format_list_bulleted</i>Categorias</div><div class="collapsible-body" style="display:none"></div></li>
 				<li>
 					<div class="collapsible-header waves-effect"><i class="material-icons">settings</i>Configurações</div>
 					<div class="collapsible-body settings transparent" style="">
 						<ul>
-							<li class="waves-effect" onclick="Autenticação.deletar()"><span style="display:inline-block;width:172px !important;"><span class="valign-wrapper"><i class="material-icons">delete</i>&emsp;Deletar Tudo</span></span></li>
-							<li class="waves-effect"><span style="display:inline-block;width:150px !important;"><span class="valign-wrapper"><i class="material-icons">brightness_2</i>&emsp;Modo Escuro</span></span><i class="switch right"><label for="tema"><input id="tema" type="checkbox"><span class="lever"></span></label></i></li>
-							<li class="waves-effect"><span style="display:inline-block;width:150px !important;"><span class="valign-wrapper"><i class="material-icons">notifications</i>&emsp;Notificações</span></span><i class="switch right"><label for="notification"><input id="notification" type="checkbox"><span class="lever"></span></label></i></li>
-							<li class="waves-effect" onclick="Modals.modalDeVisualização.abrir()"><span style="display:inline-block;width:172px !important;"><span class="valign-wrapper"><i class="material-icons">dashboard</i>&emsp;Layout</span></span></li>
+							<li class="waves-effect" onclick="GerenteDeAutenticacao.deletar()"><span style="display:inline-block;width:172px !important;"><span class="valign-wrapper"><i class="material-icons">delete</i>&emsp;Deletar Tudo</span></span></li>
+							<li class="waves-effect"><span style="display:inline-block;width:172px !important;"><span class="valign-wrapper"><i class="material-icons">brightness_2</i>&emsp;Modo Escuro</span></span><i class="switch right"><label for="tema"><input id="tema" type="checkbox"><span class="lever"></span></label></i></li>
+							<li class="waves-effect"><span style="display:inline-block;width:172px !important;"><span class="valign-wrapper"><i class="material-icons">notifications</i>&emsp;Notificações</span></span><i class="switch right"><label for="notification"><input id="notification" type="checkbox"><span class="lever"></span></label></i></li>
 						</ul>
 					</div>
 				</li>
-				<li onclick="Autenticação.sair()"><div class="collapsible-header waves-effect"><i class="material-icons">meeting_room</i>Sair</div><div class="collapsible-body" style="display:none"></div></li>
-				<li onclick="Modals.modalLimpa.abrirPost('sobre')"><div class="collapsible-header waves-effect"><i class="material-icons">info</i>Sobre</div><div class="collapsible-body" style="display:none"></div></li>
+				<li onclick="GerenteDeAutenticacao.sair()"><div class="collapsible-header waves-effect"><i class="material-icons">meeting_room</i>Sair</div><div class="collapsible-body" style="display:none"></div></li>
+				<li onclick="Pagina.modals.clean.openPost('sobre')"><div class="collapsible-header waves-effect"><i class="material-icons">info</i>Sobre</div><div class="collapsible-body" style="display:none"></div></li>
 			</ul>
 		</div>
 		<!--Nao Logado-->
@@ -108,7 +83,7 @@
 			<div class="center">
 				<h4 class="center">Seja bem-vindo ao Textos da Ju aperte o botão abaixo para entrar.</h4>
 				<div class="Local_Do_Botao_De_Login">
-					<a onclick ="Autenticação.entrar()" class="icon-button facebook"><i class="icon-facebook"><svg height="35" width="35" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg></i><span></span></a><br>
+					<a onclick ="GerenteDeAutenticacao.entrar()" class="icon-button facebook"><i class="icon-facebook"><svg height="35" width="35" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg></i><span></span></a><br>
 					<br>Ao apertar no botão você concorda com <a href="/tos">termos de serviço</a> e a <a href="/police">política de privacidade</a>.
 				</div>
 			</div>
@@ -195,7 +170,7 @@
 		</div>
 	  	<!--FAB-->
 		<div class="fixed-action-btn logado">
-			<a onclick="Modals.modalcriarEEditarPoema.abrir(null)" class="btn-floating btn-large waves-effect red">
+			<a onclick="Pagina.modals.criar.abrir(null)" class="btn-floating btn-large waves-effect red">
 				<i class="large material-icons">add</i>
 			</a>
 		</div>
@@ -223,7 +198,7 @@
 					<li><a class="black-text" id="categoria-botao"><i class="material-icons">format_list_bulleted</i>Categoria:&emsp;&emsp;<span class="right">Pessoal</span></a></li>
 				</ul>
 				<a data-target="more2" class="btn btn-flat circle waves-effect left transparent dropdown-trigger"><i class="material-icons">more_vert</i></a>
-				<a onclick="Modals.modalcriarEEditarPoema.colarDaAreaDeTransferencia()" class="btn btn-flat circle waves-effect left transparent"><i class="material-icons">content_paste</i></a>
+				<a onclick="Pagina.modals.criar.paste()" class="btn btn-flat circle waves-effect left transparent"><i class="material-icons">content_paste</i></a>
 				<a class="btn waves-effect red modal-close">Cancelar</a>
 				<button type="submit" id="salvar" class="btn waves-effect green">Salvar</button>
 			</div>
@@ -241,7 +216,6 @@
 			</div>
 			<div class="modal-footer right-align">
 				<ul class="dropdown-content" id="more">
-					<li><a id="compatilhar-botao"><i class="material-icons">share</i>Compatilhar</a></li>
 					<li><a class="waves-effect" id="cor-botao"><i class="material-icons">color_lens</i>Cor</a></li>
 					<li><a id="delete-botao"><i class="material-icons">delete</i>Deletar</a></li>
 					<li><a class="black-text" id="categoria-botao"><i class="material-icons">format_list_bulleted</i>Categoria:&emsp;&emsp;<span class="right circle">Pessoal</span></a></li>
@@ -297,7 +271,7 @@
 					<option value="3">Option 3</option>
 				</select>
 				<p class="center-align">
-					<a onclick="Modals.modalsDeCategoria.modalCriar.abrir(null)" class="btn red waves-effect" id="criar">Criar Categoria</a>
+					<a onclick="Pagina.modals.categoria.criar.abrir(null)" class="btn red waves-effect" id="criar">Criar Categoria</a>
 				</p>
 			</div>
 		</div>
@@ -327,47 +301,17 @@
 			<div class="modal-footer right-align">
 			</div>
 		</div>
-		<div class="modal" id="visualizacao-modal">
-			<form action="javascript:Modals.modalDeVisualização.salvarConfigurações()">
-				<div class="modal-content">
-					<h5>Layout e Visualização</h5>
-					<div class="container row  col s12">
-						<h6>Cards da Tela Inicial, Busca e Categorias</h6>
-							<div class="col s6">
-							<label><input class="with-gap" name="group1" type="radio" id="radio1"><span>1 Coluna</span></label>
-							</div>
-							<div class="col s6">
-							<label><input class="with-gap" name="group1" type="radio" id="radio2" ><span>2 Colunas</span></label>
-							</div>
-							<div class="col s12 switch right"><label for="previa"><input id="previa" type="checkbox"><span class="lever"></span>Mostrar Previa</label></div>
-					</div>
-				</div>
-				<div class="modal-footer right-align">
-					<a class="btn waves-effect red modal-close">Cancelar</a>
-					<button type="submit" id="salvar" class="btn waves-effect green">Salvar</button>
-				</div>
-			</form>
-		</div>
-		<div id="compatilhar-modal" class="modal bottom-sheet">
-			<div class="modal-content row">
-				<h5>Compatilhar Poema</h5>
-				<a onclick="Modals.modalDeCompatilhamento.compatilharComWhatsapp()" class="whatsapp-share col waves-effect center-align">
-				<svg height="50" width="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg><br>
-				WhatsApp
-				</a>
-				<a onclick="Modals.modalDeCompatilhamento.gerarWord()" class="word-share col waves-effect center-align">
-				<svg height="50" width="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm57.1 120H305c7.7 0 13.4 7.1 11.7 14.7l-38 168c-1.2 5.5-6.1 9.3-11.7 9.3h-38c-5.5 0-10.3-3.8-11.6-9.1-25.8-103.5-20.8-81.2-25.6-110.5h-.5c-1.1 14.3-2.4 17.4-25.6 110.5-1.3 5.3-6.1 9.1-11.6 9.1H117c-5.6 0-10.5-3.9-11.7-9.4l-37.8-168c-1.7-7.5 4-14.6 11.7-14.6h24.5c5.7 0 10.7 4 11.8 9.7 15.6 78 20.1 109.5 21 122.2 1.6-10.2 7.3-32.7 29.4-122.7 1.3-5.4 6.1-9.1 11.7-9.1h29.1c5.6 0 10.4 3.8 11.7 9.2 24 100.4 28.8 124 29.6 129.4-.2-11.2-2.6-17.8 21.6-129.2 1-5.6 5.9-9.5 11.5-9.5zM384 121.9v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"/></svg><br>
-				Gerar Word
-				</a>
-				<a onclick="Modals.modalDeCompatilhamento.compatilharComTwitter()" class="twitter-share col waves-effect center-align">
-				<svg height="50" width="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg><br>
-				Twitter
-				</a>
-				<a onclick="Modals.modalDeCompatilhamento.webShare()" class="android-share col waves-effect center-align">
-				<svg height="50" width="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M89.6 204.5v115.8c0 15.4-12.1 27.7-27.5 27.7-15.3 0-30.1-12.4-30.1-27.7V204.5c0-15.1 14.8-27.5 30.1-27.5 15.1 0 27.5 12.4 27.5 27.5zm10.8 157c0 16.4 13.2 29.6 29.6 29.6h19.9l.3 61.1c0 36.9 55.2 36.6 55.2 0v-61.1h37.2v61.1c0 36.7 55.5 36.8 55.5 0v-61.1h20.2c16.2 0 29.4-13.2 29.4-29.6V182.1H100.4v179.4zm248-189.1H99.3c0-42.8 25.6-80 63.6-99.4l-19.1-35.3c-2.8-4.9 4.3-8 6.7-3.8l19.4 35.6c34.9-15.5 75-14.7 108.3 0L297.5 34c2.5-4.3 9.5-1.1 6.7 3.8L285.1 73c37.7 19.4 63.3 56.6 63.3 99.4zm-170.7-55.5c0-5.7-4.6-10.5-10.5-10.5-5.7 0-10.2 4.8-10.2 10.5s4.6 10.5 10.2 10.5c5.9 0 10.5-4.8 10.5-10.5zm113.4 0c0-5.7-4.6-10.5-10.2-10.5-5.9 0-10.5 4.8-10.5 10.5s4.6 10.5 10.5 10.5c5.6 0 10.2-4.8 10.2-10.5zm94.8 60.1c-15.1 0-27.5 12.1-27.5 27.5v115.8c0 15.4 12.4 27.7 27.5 27.7 15.4 0 30.1-12.4 30.1-27.7V204.5c0-15.4-14.8-27.5-30.1-27.5z"/></svg><br>
-				Web Share API
-				</a>
-			</div>
-		</div>
 	</body>
+	<!-- Font Awesome>
+	<script defer src="/js/firebase-app.js"></script>
+	<script defer src="/js/firebase-auth.js"></script>
+	<script defer src="/js/firebase-firestore.js"></script>
+	<script defer src="/js/firebase-messaging.js"></script>
+	<script defer src="/js/firebase-performance.js"></script>
+	<script defer src="/js/init.js"></script>
+
+	<script src="/js/jquery-3.4.1.min.js"></script>
+	<script src="/js/materialize.min.js"></script>
+	<link href="/css/icon.css" rel="stylesheet"-->
+	<script src="/scripts.js"></script>
 </html>

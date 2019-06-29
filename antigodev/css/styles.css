@@ -1,30 +1,12 @@
 #clean-modal img{
 	width: 100%;
 }
-.whatsapp-share ,.whatsapp-share:hover ,.whatsapp-share:active ,.whatsapp-share:visited ,.whatsapp-share:link {
-	color:#20C659;
-}
-.word-share,.word-share:hover,.word-share:active,.word-share:visited ,.word-share:link {
-	color:#185ABD;
-}
-.android-share ,.android-share:hover ,.android-share:active,.android-share:visited,.android-share:link {
-	color:#A4C639;
-}
-.twitter-share,.twitter-share:hover ,.twitter-share:hover ,.twitter-share:active,.twitter-share:visited ,.twitter-share:link {
-	color:#00ACEE;
-}
-
-body{
-	font-family: 'Roboto', sans-serif;
-}
 .secondary-content{
 	float:right !important;
 	color:black;
 	text-align:right !important;
 }
-.d-none{
-	display:none;
-}
+
 .remove-1{
 	padding-bottom:0px !important;
 }
@@ -37,9 +19,6 @@ body{
 .d-inline{
 	display:inline !important;
 	
-}
-.w-100{
-	width:100% !important;
 }
 .w-70{
 	width:60% !important;
@@ -87,7 +66,6 @@ body{
 }
 .settings{
 	margin-left:5%;
-	margin-right:5%;
 }
 .settings ul li{
 	width:100% !important;
@@ -207,13 +185,4 @@ svg{
 .input-field textarea:focus {
 	border-bottom: 1px solid red !important;
 	box-shadow: 0 1px 0 0 red !important;
-}
-.poema-card .card .card-content p{
-	overflow:hidden;
-}
-[type="radio"]:checked + span:after,[type="radio"].with-gap:checked + span:before,[type="radio"].with-gap:checked + span:after {
-	border: 2px solid #ef5350;
-}
-[type="radio"]:checked + span:after,[type="radio"].with-gap:checked + span:after {
-	background-color: #ef5350;
 }

@@ -1,0 +1,33 @@
+service cloud.firestore {
+	match /databases/{database}/documents {
+		match /posts/{iddopost}{
+			allow write,update,delete: if false;
+			allow read,get: if true;
+		}
+		match /posts{
+			allow write,update,delete: if false;
+			allow read,get: if true;
+		}
+		match /usuarios/{idDoUsuario}/poemas/{idDoPoema} {
+			allow read,write,get,update,delete: if request.auth.uid == idDoUsuario;
+		}
+		match /usuarios/{idDoUsuario}/poemas {
+			allow read,write,get,update,delete: if request.auth.uid == idDoUsuario;
+		}
+		match /usuarios/{idDoUsuario}/categorias/{idDoPoema} {
+			allow read,write,get,update,delete: if request.auth.uid == idDoUsuario;
+		}
+		match /usuarios/{idDoUsuario}/categorias {
+			allow read,write,get,update,delete: if request.auth.uid == idDoUsuario;
+		}
+		match /usuarios/{idDoUsuario} {
+			allow read,write,get,update,delete: if request.auth.uid == idDoUsuario;
+		}
+		match /usuarios{
+			allow read,write,get,update,delete: if false;
+		}
+		match /dadosPrivados{
+			allow read,write,get,update,delete: if false;
+		}
+	}
+}

@@ -1,5 +1,11 @@
+
 var Pagina = {
 	iniciar(){
+		try{
+			var cookies = JSON.parse(document.cookie)
+			if(cookies.escuro){this.temaEscuro.ativar()}
+		}
+		catch(e){}
 		M.AutoInit();
 		$(".dropdown-trigger").dropdown({ hover: false, constrainWidth: false});
 		this.elementos.pesquisarTextField();
@@ -34,6 +40,42 @@ var Pagina = {
 				Pagina.elementos.atualizarTextField();
 				$("#criar-modal form").attr("action",`javascript:Pagina.modals.criar.salvarPoema('${id}')`);
 				$("#criar-modal").modal("open");
+			},
+			paste(){
+				try{
+					var cookies = JSON.parse(document.cookie)
+					if(!cookies.paste){Pagina.modals.clean.openPost("area-de-transferencia")}
+					cookies.paste=true;
+					document.cookie = JSON.stringify(cookies)
+				}
+				catch(e){
+					var cookies = {}
+					cookies.paste=true;
+					Pagina.modals.clean.openPost("area-de-transferencia")
+					document.cookie = JSON.stringify(cookies)
+				}
+				navigator.clipboard.readText().then(text=>{
+					const array = text.split("\n")
+					var titulo = null
+					var conteudo = null
+					console.log(array)
+					if(array.length == 1){
+						titulo = array[0]
+					}
+					else if(array[1] == "" && array[0] != ""){
+						titulo = array[0]
+						conteudo = array.slice(2,array.lengh).join("\n")
+					}
+					else{
+						conteudo = array.join("\n")
+					}
+					if(titulo){$("#criar-modal #editar-titulo-poema").val(titulo)}
+					if(conteudo){$("#criar-modal #editar-conteudo-poema").val(conteudo)}
+					Pagina.elementos.atualizarTextField();
+				}).catch(error=>{
+					if(error.message == "Read permission denied."){Pagina.mensagem("Permisāo da area de transferência bloqueada","Pagina.modals.clean.openPost('area-de-transferencia-bloqueada')")}
+					else{Pagina.mensagem("Erro desconhecido")}
+				})
 			},
 			alterarCategoria(categoriaId){
 				if(!categoriaId){categoriaId = this.categoriaId}
@@ -126,6 +168,13 @@ var Pagina = {
 			},
 			criar:{
 				abrir(id){
+					if(id){
+						$("#criar-categoria-modal #nome-categoria").val((GerenciadorDePoemas.categorias[id]))
+					}
+					else{
+						$("#criar-categoria-modal #nome-categoria").val(null)
+					}
+					Pagina.elementos.atualizarTextField();
 					$("#criar-categoria-modal form").attr("action",`javascript:Pagina.modals.categoria.criar.salvar('${id}')`)
 					$("#criar-categoria-modal").modal("open")
 				},
@@ -174,6 +223,16 @@ var Pagina = {
 				}
 				else{$("#poema-modal #categoria-botao span")[0].innerHTML = ""}
 			},
+			copy(id){
+				const poema = GerenciadorDePoemas.obterPoema(id);
+				const texto = poema.titulo + "\n\n" + poema.linhas.join("\n")
+				navigator.clipboard.writeText(texto).then(()=>{
+					Pagina.mensagem("Copiado")
+				}).catch(error=>{
+					if(error.message == "Read permission denied."){Pagina.mensagem("Permisāo da area de transferência bloqueada","Pagina.modals.clean.openPost('area-de-transferencia-bloqueada')")}
+					else{Pagina.mensagem("Erro desconhecido")}
+				})
+			},
 			alterarCor(cor){
 				var corDoTexto = "white";
 				if(!cor) cor = "white";
@@ -193,13 +252,47 @@ var Pagina = {
 				$("#poema-modal p")[0].innerHTML = texto;
 			},
 			alterarBotao(id){
+				$("#poema-modal #copy").attr("onclick",`Pagina.modals.poema.copy('${id}')`);
 				$("#poema-modal #cor-botao").attr("onclick",`Pagina.modals.cor.abrir('${id}')`);
 				$("#poema-modal #categoria-botao").attr("onclick",`Pagina.modals.categoria.abrir('${id}')`);
 				$("#poema-modal #delete-botao").attr("onclick",`Pagina.modals.deletar.abrir('${id}')`);
 				$("#poema-modal #editar-botao").attr("onclick",`Pagina.modals.criar.abrir('${id}')`);
 			}
+		},
+		clean:{
+			abrir(opcoes){
+			if(opcoes.titulo || opcoes.conteudo)this.definirContent(opcoes.titulo,opcoes.conteudo)
+			this.definirFooter(opcoes.footer)
+			$("#clean-modal").modal("open");
+			},
+			async openPost(postName){
+				Pagina.mensagem("Arguarde um pouco")
+				var documento = (await GerenciadorDePoemas.db.doc(`/posts/${postName}`).get())
+				if(documento.exists){
+					var opcoes = {}
+					opcoes.titulo = documento.data().titulo
+					if(!documento.data().html){
+						var converter = new showdown.Converter()
+						opcoes.conteudo = converter.makeHtml(documento.data().markdown);
+					}
+					else{opcoes.conteudo = documento.data().html}
+					this.abrir(opcoes)
+				}else{
+					Pagina.mensagem("Post nāo encontrado")
+				}
+			},
+			definirContent(title,conteudo){
+				$("#clean-modal .modal-content h5")[0].innerHTML = title
+				$("#clean-modal .modal-content #conteudo")[0].innerHTML = conteudo
+			},
+			definirFooter(footerElements){
+				if(footerElements){
+					$("#clean-modal .modal-footer")[0].innerHTML = footerElements
+				}else{
+					$("#clean-modal .modal-footer")[0].innerHTML = '<a class="btn waves-effect green modal-close">Cancelar</a>'
+				}
+			}
 		}
-
 	},
 	login(usuario){
 		if(usuario){
@@ -217,13 +310,19 @@ var Pagina = {
 			Pagina.telas.trocar(null,"#Tela_Home");
 		}
 	},
-	mensagem(texto){
+	mensagem(texto,action){
+		if(action){
+			var  html= `<span>${texto}</span><button class=" red-text btn-flat" onclick="${action}">Ajuda</button>`
+			
+		}else{
+			var html = texto
+		}
 		M.Toast.dismissAll();
-		M.toast({html:texto,displayLength:1500});
+		M.toast({html,displayLength:1500});
 	},
 	temaEscuro:{
-		elementosDeFundo:["body", ".sidenav", ".sidenav .card",".sidenav .collapsible div", "#criar-modal", "#criar-modal .modal-footer","#deletar-modal","#deletar-modal .modal-footer", "#cor-modal","#more2","#categoria-modal","#Tela_Categorias ul","#Tela_Categorias ul li","select","#criar-categoria-modal","#criar-categoria-modal .modal-footer"],
-		elementosDeTexto:[".sem-poemas" , "#Tela_Busca #apresentacao", ".input-field input", ".sidenav", "#criar-modal","#deletar-modal", "textarea","#cor-modal","#more2 a","#criar-modal .modal-footer .btn-flat","#categoria-modal h5","#Tela_Categorias ul li","select","#criar-categoria-modal"],
+		elementosDeFundo:["body", ".sidenav", ".sidenav .card",".sidenav .collapsible .collapsible-header", "#criar-modal", "#criar-modal .modal-footer","#deletar-modal","#deletar-modal .modal-footer", "#cor-modal","#more2","#categoria-modal","#Tela_Categorias ul","#Tela_Categorias ul li","select","#criar-categoria-modal","#criar-categoria-modal .modal-footer","#clean-modal","#clean-modal .modal-footer"],
+		elementosDeTexto:[".sem-poemas" , "#Tela_Busca #apresentacao", ".input-field input", ".sidenav", "#criar-modal","#deletar-modal", "textarea","#cor-modal","#more2 a","#criar-modal .modal-footer .btn-flat","#categoria-modal h5","#Tela_Categorias ul li","select","#criar-categoria-modal","#clean-modal","#clean-modal .modal-content"],
 		ativado:false,
 		async iniciar(){
 			await this.lerConfiguracaoDoUsuario()
@@ -241,26 +340,51 @@ var Pagina = {
 			}
 		},
 		salvarConfiguracaoDoUsuario(){
-			firebase.firestore().doc(`usuarios/${firebase.auth().currentUser.uid}`).set({
-				temaEscuro:this.ativado
-			});
+			firebase.firestore().doc(`usuarios/${firebase.auth().currentUser.uid}`).get().then(documento=>{
+				if(documento.exists){
+					firebase.firestore().doc(`usuarios/${firebase.auth().currentUser.uid}`).update({
+						temaEscuro:Pagina.temaEscuro.ativado
+					});
+				}
+				else{
+					firebase.firestore().doc(`usuarios/${firebase.auth().currentUser.uid}`).set({
+						temaEscuro:Pagina.temaEscuro.ativado
+					});
+				}
+			})
+			
 		},
 		ativar(){
-			$("#tema").attr("checked",true);
+			$("#tema").prop("checked",true);
+			try{var cookies = JSON.parse(document.cookie)}
+			catch(e){var cookies = {}}
+			cookies.escuro=true;
+			document.cookie = JSON.stringify(cookies)
 			this.ativado = true;
 			this.corDeTexto="white"
 			$(this.elementosDeFundo.join(",")).addClass("grey darken-4");
 			$(this.elementosDeTexto.join(",")).addClass("white-text");
+			if(Pagina.telas.atual =="#Tela_Categorias" && Pagina.telas.atualCategoriaId == null){
+				Pagina.telas.categoriaLista()
+			}
 
 		},
 		desativar(){
-			$("#tema").attr("checked",false);
+			$("#tema").prop("checked",false);
+			try{var cookies = JSON.parse(document.cookie)}
+			catch(e){var cookies = {}}
+			cookies.escuro=false;
+			document.cookie = JSON.stringify(cookies)
 			this.ativado = false;
 			this.corDeTexto="black"
 			$(this.elementosDeFundo.join(",")).removeClass("grey darken-4");
 			$(this.elementosDeTexto.join(",")).removeClass("white-text");
+			if(Pagina.telas.atual == "#Tela_Categorias" && Pagina.telas.atualCategoriaId == null){
+				Pagina.telas.categoriaLista()
+			}
 		},
 		alterarTema(ativar){
+			Pagina.mensagem("Alterando Tema")
 			if(ativar)this.ativar();
 			else this.desativar();
 			this.salvarConfiguracaoDoUsuario();
@@ -269,6 +393,7 @@ var Pagina = {
 	elementos:{
 		atualizarTextField(){
 			M.updateTextFields();
+			M.textareaAutoResize($('#editar-conteudo-poema'))
 		},
 		logoAnimation(){
 			setTimeout(()=>{
@@ -291,11 +416,19 @@ var Pagina = {
 			$("#tema").click(()=>{
 				Pagina.temaEscuro.alterarTema($("#tema").prop("checked"))
 			})
+			$("#notification").click(async ()=>{
+				if(typeof Notification != "undefined"){
+					await Notificacoes.checkBoxChange()
+				}else{
+					Notificacoes.checkBox(false)
+					Pagina.mensagem("Seu Navegador não suporta notificações")
+				}
+			})
 		}
 	},
 	eventos:{
 		onresize(funcao){
-
+			window.addEventListener("resize",funcao,false);
 		}
 	},
 	telas:{
@@ -385,7 +518,7 @@ var Pagina = {
 			const categorias = Object.keys(GerenciadorDePoemas.categorias);
 			html += categorias.map(categoriaId=>{
 				
-				return  `<li class="collection-item waves-effect w-100 ${temaEscuro} row remove-1">  <div onclick="Pagina.telas.categoriaItem('${categoriaId}')"  class="valign-wrapper col s10 remove-2"> <span class="tiny material-icons">brightness_1</span> &emsp;${GerenciadorDePoemas.categorias[categoriaId]}</div><div onclick="Pagina.telas.categoriaDelete('${categoriaId}')" class=" col s2 right-align"><i class="material-icons">delete</i></div></li>`
+				return  `<li class="collection-item waves-effect w-100 ${temaEscuro} row remove-1">  <div onclick="Pagina.telas.categoriaItem('${categoriaId}')"  class="valign-wrapper col s8 remove-2"> <span class="tiny material-icons">brightness_1</span> &emsp;${GerenciadorDePoemas.categorias[categoriaId]}</div><div class=" col s4 right-align"><a class="${temaEscuro}" onclick="Pagina.modals.categoria.criar.abrir('${categoriaId}')" ><i class="material-icons">edit</i></a>&emsp;<a class="${temaEscuro}" onclick="Pagina.telas.categoriaDelete('${categoriaId}')" ><i class="material-icons">delete</i></a></div></li>`
 			}).join('')
 			html += "</ul>"
 			$("#lista-de-categorias")[0].innerHTML = html
@@ -411,7 +544,37 @@ var Pagina = {
 			
 			Pagina.telas.categoriaLista()
 		}
+	},
+	urlSystem(){
+		var url = new URL(window.location.href);
+		var modo = url.searchParams.get("mode");
+		if(modo == "clean_modal"){
+			var post = url.searchParams.get("post");
+			if(post){
+				this.modals.clean.openPost(post)
+			}
+		}
+		else if(modo == "poema"){
+			var id = url.searchParams.get("id");
+			if(id){Pagina.modals.poema.abrir(id)}
+		}
+		else if(modo == "criar"){
+			var id = url.searchParams.get("id");
+			Pagina.modals.criar.abrir(id)
+		}
+		else if(modo == "pwa"){
+			
+		}
 	}
+}
+function atiUndefined(objeto){
+	var keys = Object.keys(objeto)
+	for(var i = 0;i<keys.length;i++){
+		if(objeto[keys[i]] == undefined){
+			objeto[keys[i]] = null
+		}
+	}
+	return objeto
 }
 var GerenciadorDePoemas ={
 	async iniciar(){
@@ -440,7 +603,7 @@ var GerenciadorDePoemas ={
 			const resultadoDosFiltros = filtros.map(filtro=>{
 				if(filtro!="conteudo"){
 					const texto = poema[filtro]
-					return analizarString(texto,termoDeBusca) //.indexOf(termoDeBusca) != -1){console.log("termo encontrado no titulo");return true}
+					return analizarString(texto,termoDeBusca)
 				}
 				else{
 					const resultadosDasLinhas = poema.linhas.map(linha=>analizarString(linha,termoDeBusca))
@@ -500,8 +663,7 @@ var GerenciadorDePoemas ={
 				"categoriaId":documento.data().categoriaId,
 				"id":documento.id
 			};
-			console.log(documento.data().cor)
-			console.log(poema)
+			poema = atiUndefined(poema)
 			this.poemas.push(poema);
 		})
 		documentos = (await this.db.collection(`usuarios/${firebase.auth().currentUser.uid}/categorias`).get()).docs;
@@ -539,9 +701,12 @@ var GerenteDeAutenticacao= {
 					await GerenciadorDePoemas.iniciar();
 					$("#qtd_poemas")[0].innerHTML = GerenciadorDePoemas.poemas.length;
 					await Pagina.temaEscuro.iniciar();
+					try{await Notificacoes.iniciar()}catch(e){}
 
 				}
 				Pagina.login(usuario);
+				Pagina.urlSystem();
+				
 			})
 		}
 	},
@@ -549,8 +714,9 @@ var GerenteDeAutenticacao= {
 		var user = firebase.auth().currentUser;
 		user.delete().then(function() {
 			$(".sidenav").sidenav("close");
-			Pagina.mensagem(`Saindo... tchau ${String.fromCodePoint(0x1F44B)}${String.fromCodePoint(0x1F44B)}`)
-			Pagina.temaEscuro.restaurar();
+			Pagina.mensagem(`Volte Sempre... tchau ${String.fromCodePoint(0x1F44B)}${String.fromCodePoint(0x1F44B)}`)
+			Pagina.temaEscuro.desativar()
+			document.cookie = ""
 		}).catch(function(error) {
 			if(error.code == "auth/requires-recent-login"){
 				this.deleteProcess = true
@@ -558,11 +724,12 @@ var GerenteDeAutenticacao= {
 				var provider = new firebase.auth.FacebookAuthProvider();
 				firebase.auth().signInWithPopup(provider).then(function(result) {
 					var credential = result.credential
-					firebase.auth().currentUser.reauthenticateAndRetrieveDataWithCredential(credential).then(function() {
+					firebase.auth().currentUser.reauthenticateWithCredential(credential).then(function() {
 						firebase.auth().currentUser.delete()
 						$(".sidenav").sidenav("close");
-						Pagina.mensagem(`Saindo... tchau ${String.fromCodePoint(0x1F44B)}${String.fromCodePoint(0x1F44B)}`)
-						Pagina.temaEscuro.alterarTema(false)
+						Pagina.mensagem(`Volte Sempre... tchau ${String.fromCodePoint(0x1F44B)}${String.fromCodePoint(0x1F44B)}`)
+						Pagina.temaEscuro.desativar()
+						document.cookie = ""
 					})
 				})
 			}
@@ -575,11 +742,131 @@ var GerenteDeAutenticacao= {
 	sair(){
 		$(".sidenav").sidenav("close");
 		Pagina.mensagem(`Saindo... tchau ${String.fromCodePoint(0x1F44B)}${String.fromCodePoint(0x1F44B)}`)
-		Pagina.temaEscuro.alterarTema(false)
+		Pagina.temaEscuro.desativar()
 		firebase.auth().signOut();
 	}
 }
+var Notificacoes = {
+	async iniciar(){
+		switch (Notification.permission){
+			case 'default':
+				this.checkBox(false)
+				break;
+			case 'denied':
+				this.checkBox(false)
+				break;
+			case 'granted':
+				var token = await this.obterToken()
+				if(await this.compararToken(token)){
+					this.checkBox(true)
+				}
+				else{
+					this.checkBox(false)
+				}
+				break;
+		}
+	},
+	async obterToken(){
+		return await firebase.messaging().getToken().then(token=>{
+			return token
+		});
+	},
+	async compararToken(token){
+		var tokens = (await GerenciadorDePoemas.db.doc(`usuarios/${firebase.auth().currentUser.uid}`).get()).data().fcmToken
+		if(typeof tokens == "undefined"){tokens = []}
+		if(tokens.indexOf(token) == -1){return false}
+		else{return true}
+	},
+	checkBox(isChecked){
+		$("#notification").prop("checked",isChecked);
+		//$("#tema").attr("checked",false);
+	},
+	async desativar(token){
+		var tokens = (await GerenciadorDePoemas.db.doc(`usuarios/${firebase.auth().currentUser.uid}`).get()).data().fcmToken
+		tokens.splice(tokens.indexOf(token))
+		GerenciadorDePoemas.db.doc(`usuarios/${firebase.auth().currentUser.uid}`).update({
+			fcmToken:tokens
+		});
+	},
+	enviarToken(token){
+		if(token != undefined){
+			GerenciadorDePoemas.db.doc(`usuarios/${firebase.auth().currentUser.uid}`).get().then(documento=>{
+				if(documento.exists){
+					var tokens = documento.data().fcmToken
+					if(tokens){
+						if(tokens.indexOf(token) == -1){
+							tokens.push(token)
+						}
+					}
+					else{
+						tokens = [token]
+					}
+					GerenciadorDePoemas.db.doc(`usuarios/${firebase.auth().currentUser.uid}`).update({
+						fcmToken:tokens
+					});
+				}
+				else{
+					GerenciadorDePoemas.db.doc(`usuarios/${firebase.auth().currentUser.uid}`).set({
+						fcmToken:[token]
+					});
+				}
+			})
+		}
+	},
+	async checkBoxChange(){
+		
+		var checked = $("#notification").prop("checked")
+		if(checked){
+			switch (Notification.permission){
+			case 'default':
+				try{
+					await this.requestPermission()
+					var token = await this.obterToken()
+					await this.enviarToken(token)
+					Pagina.mensagem("Notificações ativadas")
+				}
+				catch(error){
+					if(error.message == "messaging/permission-blocked"){
+						Pagina.mensagem("Você negou as notificações",()=>{
+							Pagina.modals.clean.openPost("permission-bloqued")
+						})
+					}
+					this.checkBox(false)
+				}
+				break;
+			case 'denied':
+				Pagina.mensagem("A permissão de notificações está bloqueada","Pagina.modals.clean.openPost('permission-bloqued')")
+				this.checkBox(false)
+				break;
+			case 'granted':
+				var token = await this.obterToken()
+				await this.enviarToken(token)
+				Pagina.mensagem("Notificações ativadas")
+				break;
+			}
+		}
+		else{
+			var token = await this.obterToken()
+			await this.desativar(token)
+			Pagina.mensagem("Notificações Desativadas")
+		}
+	},
+	async requestPermission(){
+		return await Notification.requestPermission().catch((erro)=>{
+			throw Error(erro.code);
+		})
+	}
+}
+if ('serviceWorker' in navigator) {
+	navigator.serviceWorker.register('/sw.js', {scope:''}).then((registration) => {
+		firebase.messaging().useServiceWorker(registration)
+	});
+}
 $(document).ready(()=>{
-	//firebug.win.hide()
+	if(typeof firebug != "undefined"){firebug.win.hide()}
 	Pagina.iniciar();
+	const perf = firebase.performance();
+	trace = perf.trace('App Data');
+	trace.incrementMetric('App Version', 5.0);
+	
 });
