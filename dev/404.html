@@ -31,11 +31,18 @@
 		<meta name="theme-color" content="#F44336">
 		<!--js cookies-->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
-		<!-- Materialize-->
-		<link rel="stylesheet" href="/css/materialize.min.css">
-		<!--Meu CSS e JS -->
-		<script src="/js/materialize.min.js"></script>
+		<!--JQuery-->
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<!--Materialize -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<!--Icons e Fonts-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 		<style>
+			body{
+				font-family: 'Roboto', sans-serif;
+			}
 			.voltarButton{
 				float:left;
 				position:relative;
@@ -79,7 +86,6 @@
 		</div>
 	</body>
 	
-	<link href="/css/icon.css" rel="stylesheet">
 	<script>
 		function OnLoad(){
 			var configuração = Cookies.get('modoEscuro')//cookies.buscar("modoEscuro")
