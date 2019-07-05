@@ -2,9 +2,8 @@ var CACHE_NAME = 'gsb-79';
 var CACHE_FILES = [
 	"/",
 	"/index.html",
-	"/js/",
-	"",
-	"",
+	"/js/default.js",
+	"/css/styles.css"
 ];
 console.log(CACHE_NAME)
 
@@ -69,7 +68,7 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
-
+workbox.precaching.precacheAndRoute(CACHE_FILES);
 if (workbox) {
   console.log(`Yay! Workbox is loaded 🎉`);
 } else {
@@ -104,8 +103,8 @@ workbox.routing.registerRoute(
  workbox.routing.registerRoute(
   /\.(?:js|css)$/,
   new workbox.strategies.StaleWhileRevalidate(),
-); 
 
+); 
  workbox.routing.registerRoute(
   /\.(?:png|gif|jpg|jpeg|svg)$/,
   new workbox.strategies.CacheFirst({
