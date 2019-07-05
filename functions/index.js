@@ -1,10 +1,8 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const {WebhookClient} = require('dialogflow-fulfillment');
-const {SignIn, Image, BasicCard, Button} = require("actions-on-google")
+
 admin.initializeApp(functions.config().firebase);
-process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
-const request = require ("request")
+
 
 async function deleteCollection(path){
 	var documents = (await db.collection(path).get()).docs;
