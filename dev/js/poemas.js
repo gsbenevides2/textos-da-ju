@@ -88,7 +88,7 @@ var GerenciadorDePoemas ={
 		this.poemas = [];
 		this.categorias = {}
 		
-		var documentos = (await this.db.collection(`usuarios/${firebase.auth().currentUser.uid}/poemas`).get( {source: 'cache'})).docs;
+		var documentos = (await this.db.collection(`usuarios/${firebase.auth().currentUser.uid}/poemas`).get( )).docs;
 		documentos.map(documento =>{
 			var poema = {
 				"titulo": documento.data().titulo,

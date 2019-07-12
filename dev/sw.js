@@ -1,4 +1,4 @@
-var CACHE_NAME = 'gsb-79';
+var CACHE_NAME = 'gsb-80';
 var CACHE_FILES = [
 	"/",
 	"/index.html",

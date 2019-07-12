@@ -1,0 +1,37 @@
+[debug] [2019-07-12T13:49:54.015Z] ----------------------------------------------------------------------
+[debug] [2019-07-12T13:49:54.029Z] Command:       /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/bin/firebase serve
+[debug] [2019-07-12T13:49:54.030Z] CLI Version:   7.0.2
+[debug] [2019-07-12T13:49:54.030Z] Platform:      android
+[debug] [2019-07-12T13:49:54.031Z] Node Version:  v12.4.0
+[debug] [2019-07-12T13:49:54.033Z] Time:          Fri Jul 12 2019 10:49:54 GMT-0300 (GMT-03:00)
+[debug] [2019-07-12T13:49:54.033Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-07-12T13:49:54.086Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-07-12T13:49:54.088Z] > authorizing via signed-in user
+[debug] [2019-07-12T13:49:54.089Z] [iam] checking project textos-da-ju for permissions ["firebase.projects.get"]
+[debug] [2019-07-12T13:49:54.100Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/textos-da-ju:testIamPermissions  
+
+[debug] [2019-07-12T13:49:55.611Z] <<< HTTP RESPONSE 200
+[debug] [2019-07-12T13:49:55.628Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/textos-da-ju  
+ 
+[debug] [2019-07-12T13:49:56.799Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/data/data/com.termux/files/home/projetos/textos-da-ju'...
+[info] 
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "12"
+[debug] [2019-07-12T13:49:56.855Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/886437033630/clients/_:getWebAppConfig  
+ 
+[debug] [2019-07-12T13:49:56.859Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/886437033630:getServerAppConfig  
+ 
+[debug] [2019-07-12T13:49:57.516Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: Emulator started at http://localhost:5001
+[debug] [2019-07-12T13:49:57.589Z] <<< HTTP RESPONSE 200
+[info] i  functions: Watching "/data/data/com.termux/files/home/projetos/textos-da-ju/functions" for Cloud Functions...
+[info] i  hosting[app]: Serving hosting files from: dev
+[info] ✔  hosting[app]: Local server: http://localhost:5000
+[info] i  hosting[test]: Serving hosting files from: dev
+[info] ✔  hosting[test]: Local server: http://localhost:5005
+[debug] [2019-07-12T13:50:06.466Z] Functions runtime initialized.
+[debug] [2019-07-12T13:50:06.468Z] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"protect_env":true,"admin_stubs":true}
+[warn] ⚠  The Cloud Functions emulator requires the module "firebase-admin" to be installed. This package is in your package.json, but it's not available. You probably need to run "npm install" in your functions directory.
+[info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)
