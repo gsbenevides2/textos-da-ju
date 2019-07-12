@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
+		<!--script src='http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'></script-->
+		<!--script src="//cdn.jsdelivr.net/npm/eruda"></script>
+		<script>eruda.init();</script>
 		<!-- MetaTags Title -->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Textos da Julia</title>
+		<title>404</title>
 		<link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-icon-57x57.png">
 		<link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-icon-60x60.png">
 		<link rel="apple-touch-icon" sizes="72x72" href="/icon/apple-icon-72x72.png">
@@ -26,17 +29,70 @@
 		<meta name="msapplication-TileColor" content="#ffffff">
 		<meta name="msapplication-TileImage" content="/icon/ms-icon-144x144.png">
 		<meta name="theme-color" content="#F44336">
-		<!-- jQuery -->
-		<script src="/js/jquery-3.4.1.min.js"></script>
-		<!-- Materialize -->
-		<link rel="stylesheet" href="/css/materialize.min.css">
-		<link href="/css/icons/material/icon.css" rel="stylesheet">
+		<!--js cookies-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
+		<!--JQuery-->
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<!--Materialize -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<!--Icons e Fonts-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+		<style>
+			body{
+				font-family: 'Roboto', sans-serif;
+			}
+			.voltarButton{
+				float:left;
+				position:relative;
+				z-index:1;
+				height:56px;
+				margin-top:0px;
+				padding-left:18px;
+				padding-right:18px;
+				margin-bottom:0px;
+			}
+			.title-navBar{
+				max-width:100%;
+				font-size:1.60rem !important;
+				position: absolute !important;
+				display:block !important;
+				padding-top:0px;
+				padding-left:0px;
+				padding-right:0px;
+				padding-bottom:0px;
+			}
+		</style>
 	</head>
-	<body class="container row center-align">
-		<h2>404</h2>
-		<h4>Não Encontrado</h4>
-		<h5>Ops o que você procura não esta aqui!</h5>
-		<p>Verifique se a url esta certa.</p>
-		<a href="/index.html" class="btn red waves-effect">Ir para Home.</a>
+	<body onload="OnLoad()">
+		<!--Top AppBar-->
+		<div class="navbar-fixed">
+			<nav>
+				<div class="nav-wrapper red">
+					<a href="/" class="voltarButton waves-effect"><i class="material-icons">home</i></a>
+					<span href="#!" class="brand-logo title-navBar">404</span>
+				</div>
+			</nav>
+		</div>
+		<!--Pagina-->
+		<div class="container">
+			<div class="row">
+				<div class="col s8 offset-s2 center-align">
+					<h3>Ops o que você procura não está aqui</h3>
+					<a href="\" class="btn red waves-effect waves-light"><i class="material-icons left">home</i>Ir a tela inicial</a>
+				</div>
+			</div>
+		</div>
 	</body>
+	
+	<script>
+		function OnLoad(){
+			var configuração = Cookies.get('modoEscuro')//cookies.buscar("modoEscuro")
+			if(configuração == "true"){
+				$("body").addClass("grey darken-4");
+				$("body").addClass("white-text");
+			}
+		}
+	</script>
 </html>

@@ -1,9 +1,11 @@
-var CACHE_NAME = 'gsb-79';
+var CACHE_NAME = 'gsb-85';
 var CACHE_FILES = [
 	"/",
 	"/index.html",
-	"/js/default.js",
-	"/css/styles.css"
+	"/scripts.js",
+	"/styles.css",
+	"/js/firebase-app.js",
+	"/js/firebase-messaging.js"
 ];
 console.log(CACHE_NAME)
 
@@ -48,8 +50,8 @@ self.addEventListener('fetch', function (evt) {
 
 
 
-importScripts('/__/firebase/6.2.0/firebase-app.js');
-importScripts('/__/firebase/6.2.0/firebase-messaging.js');
+importScripts('/js/firebase-app.js');
+importScripts('/js/firebase-messaging.js');
 
 // Initialize the Firebase app in the service worker by passing in the
 // messagingSenderId.
@@ -68,43 +70,18 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
-workbox.precaching.precacheAndRoute(CACHE_FILES);
+
 if (workbox) {
   console.log(`Yay! Workbox is loaded 🎉`);
 } else {
   console.log(`Boo! Workbox didn't load 😬`);
 }
 
- // Cache the Google Fonts stylesheets with a stale while revalidate strategy.
-workbox.routing.registerRoute(
-  /^https:\/\/fonts\.googleapis\.com/,
-  new workbox.strategies.StaleWhileRevalidate({
-    cacheName: 'google-fonts-stylesheets',
-  }),
-);
-
-// Cache the Google Fonts webfont files with a cache first strategy for 1 year.
-workbox.routing.registerRoute(
-  /^https:\/\/fonts\.gstatic\.com/,
-  new workbox.strategies.CacheFirst({
-    cacheName: 'google-fonts-webfonts',
-    plugins: [
-      new workbox.cacheableResponse.Plugin({
-        statuses: [0, 200],
-      }),
-      new workbox.expiration.Plugin({
-        maxAgeSeconds: 60 * 60 * 24 * 365,
-      }),
-    ],
-  }),
-); 
-
-
  workbox.routing.registerRoute(
   /\.(?:js|css)$/,
   new workbox.strategies.StaleWhileRevalidate(),
-
 ); 
+
  workbox.routing.registerRoute(
   /\.(?:png|gif|jpg|jpeg|svg)$/,
   new workbox.strategies.CacheFirst({
