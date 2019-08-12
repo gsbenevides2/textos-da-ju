@@ -21,6 +21,7 @@ function URLsEspecificas(){
 
 var Autenticação = {
 	iniciar(){
+		firebase.apps[0].options.authDomain= window.location.href
 		firebase.auth().onAuthStateChanged(async(usuário)=>{
 			if(usuário && this.deletandoConta != true){
 				Pagina.mensagem(`Seja Bem Vindo ${usuário.displayName} ${String.fromCodePoint(0x1F603)}`);
