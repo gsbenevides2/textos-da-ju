@@ -1,41 +1,95 @@
-[debug] [2019-08-12T19:29:55.156Z] ----------------------------------------------------------------------
-[debug] [2019-08-12T19:29:55.174Z] Command:       /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/bin/firebase serve
-[debug] [2019-08-12T19:29:55.175Z] CLI Version:   7.2.2
-[debug] [2019-08-12T19:29:55.176Z] Platform:      android
-[debug] [2019-08-12T19:29:55.176Z] Node Version:  v12.4.0
-[debug] [2019-08-12T19:29:55.241Z] Time:          Mon Aug 12 2019 16:29:55 GMT-0300 (GMT-03:00)
-[debug] [2019-08-12T19:29:55.241Z] ----------------------------------------------------------------------
+[debug] [2019-08-12T19:50:07.578Z] ----------------------------------------------------------------------
+[debug] [2019-08-12T19:50:07.641Z] Command:       /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/bin/firebase serve
+[debug] [2019-08-12T19:50:07.643Z] CLI Version:   7.2.2
+[debug] [2019-08-12T19:50:07.643Z] Platform:      android
+[debug] [2019-08-12T19:50:07.644Z] Node Version:  v12.4.0
+[debug] [2019-08-12T19:50:07.717Z] Time:          Mon Aug 12 2019 16:50:07 GMT-0300 (GMT-03:00)
+[debug] [2019-08-12T19:50:07.717Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2019-08-12T19:29:55.342Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-08-12T19:29:55.344Z] > authorizing via signed-in user
-[debug] [2019-08-12T19:29:55.345Z] [iam] checking project textos-da-ju for permissions ["firebase.projects.get"]
-[debug] [2019-08-12T19:29:55.358Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2019-08-12T19:29:55.360Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
- <request body omitted>
-[debug] [2019-08-12T19:29:56.287Z] <<< HTTP RESPONSE 200
-[debug] [2019-08-12T19:29:56.315Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/textos-da-ju:testIamPermissions  
+[debug] [2019-08-12T19:50:07.803Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-12T19:50:07.807Z] > authorizing via signed-in user
+[debug] [2019-08-12T19:50:07.808Z] [iam] checking project textos-da-ju for permissions ["firebase.projects.get"]
+[debug] [2019-08-12T19:50:07.827Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/textos-da-ju:testIamPermissions  
 
-[debug] [2019-08-12T19:29:57.643Z] <<< HTTP RESPONSE 200
-[debug] [2019-08-12T19:29:57.655Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/textos-da-ju  
+[debug] [2019-08-12T19:50:09.396Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-12T19:50:09.417Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/textos-da-ju  
  
-[debug] [2019-08-12T19:29:59.179Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-12T19:50:10.888Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from '/data/data/com.termux/files/home/projetos/textos-da-ju'...
 [info] 
-[debug] [2019-08-12T19:29:59.226Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/textos-da-ju/webApps/-/config  
+[debug] [2019-08-12T19:50:10.933Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/textos-da-ju/webApps/-/config  
  
 [warn] ⚠  Your requested "node" version "8" doesn't match your global version "12"
-[debug] [2019-08-12T19:29:59.363Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/textos-da-ju/adminSdkConfig  
+[debug] [2019-08-12T19:50:11.030Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/textos-da-ju/adminSdkConfig  
  
-[debug] [2019-08-12T19:30:00.711Z] <<< HTTP RESPONSE 200
-[debug] [2019-08-12T19:30:00.780Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-12T19:50:12.400Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-12T19:50:12.482Z] <<< HTTP RESPONSE 200
 [info] i  hosting[app]: Serving hosting files from: dev
 [info] ✔  hosting[app]: Local server: http://localhost:5000
-[info] ✔  functions: Emulator started at http://localhost:5001
-[info] i  functions: Watching "/data/data/com.termux/files/home/projetos/textos-da-ju/functions" for Cloud Functions...
 [info] i  hosting[test]: Serving hosting files from: dev
 [info] ✔  hosting[test]: Local server: http://localhost:5005
-[debug] [2019-08-12T19:30:12.983Z] [runtime-status] Functions runtime initialized. {"cwd":"/data/data/com.termux/files/home/projetos/textos-da-ju/functions","node_version":"12.4.0"}
-[debug] [2019-08-12T19:30:12.986Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[info] ✔  functions: Emulator started at http://localhost:5001
+[info] i  functions: Watching "/data/data/com.termux/files/home/projetos/textos-da-ju/functions" for Cloud Functions...
+[debug] [2019-08-12T19:50:22.322Z] [runtime-status] Functions runtime initialized. {"cwd":"/data/data/com.termux/files/home/projetos/textos-da-ju/functions","node_version":"12.4.0"}
+[debug] [2019-08-12T19:50:22.326Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
 [warn] ⚠  The Cloud Functions emulator requires the module "firebase-admin" to be installed. This package is in your package.json, but it's not available. You probably need to run "npm install" in your functions directory.
 [info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)
+[debug] [2019-08-12T20:34:23.413Z] ----------------------------------------------------------------------
+[debug] [2019-08-12T20:34:23.435Z] Command:       /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/bin/firebase serve
+[debug] [2019-08-12T20:34:23.436Z] CLI Version:   7.2.2
+[debug] [2019-08-12T20:34:23.437Z] Platform:      android
+[debug] [2019-08-12T20:34:23.437Z] Node Version:  v12.4.0
+[debug] [2019-08-12T20:34:23.527Z] Time:          Mon Aug 12 2019 17:34:23 GMT-0300 (GMT-03:00)
+[debug] [2019-08-12T20:34:23.528Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-08-12T20:34:23.598Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-12T20:34:23.600Z] > authorizing via signed-in user
+[debug] [2019-08-12T20:34:23.601Z] [iam] checking project textos-da-ju for permissions ["firebase.projects.get"]
+[debug] [2019-08-12T20:34:23.612Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-08-12T20:34:23.614Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-08-12T20:34:24.305Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-12T20:34:24.337Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/textos-da-ju:testIamPermissions  
+
+[debug] [2019-08-12T20:34:25.489Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-12T20:34:25.499Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/textos-da-ju  
+ 
+[debug] [2019-08-12T20:34:26.104Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/data/data/com.termux/files/home/projetos/textos-da-ju'...
+[info] 
+[debug] [2019-08-12T20:34:26.141Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/textos-da-ju/webApps/-/config  
+ 
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "12"
+[debug] [2019-08-12T20:34:26.251Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/textos-da-ju/adminSdkConfig  
+ 
+[debug] [2019-08-12T20:34:26.711Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: Emulator started at http://localhost:5001
+[debug] [2019-08-12T20:34:27.768Z] <<< HTTP RESPONSE 200
+[info] i  functions: Watching "/data/data/com.termux/files/home/projetos/textos-da-ju/functions" for Cloud Functions...
+[info] i  hosting[app]: Serving hosting files from: dev
+[info] ✔  hosting[app]: Local server: http://localhost:5000
+[info] i  hosting[test]: Serving hosting files from: dev
+[info] ✔  hosting[test]: Local server: http://localhost:5005
+[debug] [2019-08-12T20:34:38.574Z] [runtime-status] Functions runtime initialized. {"cwd":"/data/data/com.termux/files/home/projetos/textos-da-ju/functions","node_version":"12.4.0"}
+[debug] [2019-08-12T20:34:38.577Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[warn] ⚠  The Cloud Functions emulator requires the module "firebase-admin" to be installed. This package is in your package.json, but it's not available. You probably need to run "npm install" in your functions directory.
+[info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)
+[debug] [2019-08-12T20:36:53.691Z] ----------------------------------------------------------------------
+[debug] [2019-08-12T20:36:53.711Z] Command:       /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/bin/firebase deploy --only hosting
+[debug] [2019-08-12T20:36:53.713Z] CLI Version:   7.2.2
+[debug] [2019-08-12T20:36:53.713Z] Platform:      android
+[debug] [2019-08-12T20:36:53.714Z] Node Version:  v12.4.0
+[debug] [2019-08-12T20:36:53.720Z] Time:          Mon Aug 12 2019 17:36:53 GMT-0300 (GMT-03:00)
+[debug] [2019-08-12T20:36:53.720Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-08-12T20:36:53.787Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-12T20:36:53.789Z] > authorizing via signed-in user
+[debug] [2019-08-12T20:36:53.791Z] [iam] checking project textos-da-ju for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-08-12T20:36:53.809Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/textos-da-ju:testIamPermissions  
+
+[debug] [2019-08-12T20:36:55.554Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-12T20:36:55.569Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/textos-da-ju  
+ 
+[debug] [2019-08-12T20:36:57.074Z] <<< HTTP RESPONSE 200
